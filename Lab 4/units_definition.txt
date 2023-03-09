@@ -1,0 +1,2 @@
+tesla = kilogram * second ** (-2) * amp ** (-1) = T = teslas
+weber = tesla * meter ** 2 = Wb = webers
