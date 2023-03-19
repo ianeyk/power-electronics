@@ -48,7 +48,7 @@ def strip_labels(label: str):
     return label[:idx]
 
 # read funky Rigol CSV format
-def read_rigol_csv(csv_file_name, ch1 = "CH1", ch2 = "CH2", ch3 = "CH3", ch4 = "CH4", smooth = 10):
+def read_rigol_csv(csv_file_name, ch1 = "CH1", ch2 = "CH2", ch3 = "CH3", ch4 = "CH4", smooth = 10, shift = 0):
     # print("running helper")
     with open(csv_file_name) as f:
         rows = list(csv.reader(f))
@@ -57,9 +57,11 @@ def read_rigol_csv(csv_file_name, ch1 = "CH1", ch2 = "CH2", ch3 = "CH3", ch4 = "
             i = i+1
         numcols = i-2
         t0 = float(rows[1][numcols])
-        dT = float(rows[1][numcols+1])
+        dt = float(rows[1][numcols+1])
     data = pd.read_csv(csv_file_name, usecols=range(0,numcols), skiprows=[1])
-    data['X'] = t0+data['X']*dT
+
+    data['X'] = t0 + data['X'] * dt + shift
+    data['X'] = (data['X'] // dt) * dt # make sure the result is an integer multiple of dt so that joins still work
 
     data.rename(columns = {"X": "t"}, inplace = True)
 
@@ -72,4 +74,4 @@ def read_rigol_csv(csv_file_name, ch1 = "CH1", ch2 = "CH2", ch3 = "CH3", ch4 = "
             if smooth > 0:
                 data[new_name] = data[new_name].rolling(smooth).mean()
 
-    return data, t0, dT
+    return data, t0, dt
