@@ -24,7 +24,7 @@ Plecs {
   AlgebraicLoopWithStateMachineMsg "3"
   AssertionAction "1"
   InitializationCommands "C = 3.15e-6; # uF\nFs = 48.8e3; # kHz\nTs = 1 / Fs; "
-"# s\nD = 35 / 100; # percent\nVg = 18; # V\nVtarget = 4; # V\nM = Vtarget / V"
+"# s\nD = 35 / 100; # percent\nVg = 18; # V\nVtarget = 9; # V\nM = Vtarget / V"
 "g; # Voltage conversion ratio\nPout = 20; # W\nRload = 5; # Ohms\nIout = Pout"
 " / Vtarget; # Amps\n\n# Discontinuous Conduction Mode\n# L = 16.53e-6; # H\n"
 "\nM = Vtarget / Vg; # Voltage conversion ratio\nLcrit = 1 / (M + 1) ** 2 * Rl"
@@ -98,7 +98,7 @@ Plecs {
       Flipped       on
       Parameter {
         Variable      "C"
-        Value         "4.92e-6"
+        Value         "3.10e-6"
         Show          on
       }
       Parameter {
